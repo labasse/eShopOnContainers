@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Catalog.API</name>
+    </assembly>
+    <members>
+        <member name="M:Catalog.API.Controllers.CatalogController.Get(System.Int32,System.Int32)">
+            <summary>
+            Get a paginated list of the catalog items
+            </summary>
+            <param name="pageNum">Page numebr</param>
+            <param name="pageSize">Page size</param>
+            <returns>Paginated list of CatalogItems</returns>
+            <response code="200">Request successfully processed</response>
+            <response code="400">Error in the request parameters</response>
+        </member>
+        <member name="M:Catalog.API.Controllers.CatalogController.Get(System.Int32)">
+            <summary>
+            Get the specified CatalogItem from its identifier
+            </summary>
+            <param name="id">Identifier of the catalog item to be retreived</param>
+            <returns>Catalog Item found</returns>
+            <response code="200">Catalog Item with the given ID found</response>
+            <response code="404">No catalog item with the given ID found</response>
+        </member>
+    </members>
+</doc>
