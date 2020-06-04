@@ -9,6 +9,7 @@ services:
     depends_on:
       - catalog.db
   catalog.db:
+    container_name: ${DOCKER_REGISTRY-}Catalog.DB
     image: "mcr.microsoft.com/mssql/server"
     command: /bin/bash /entrypoint.sh
     environment:
@@ -18,4 +19,7 @@ services:
       - ./src/Services/Catalog/Catalog.DB/entrypoint.sh:/entrypoint.sh
       - ./src/Services/Catalog/Catalog.DB/eShopOnContainersCatalog.sh:/eShopOnContainersCatalog.sh
       - ./src/Services/Catalog/Catalog.DB/eShopOnContainersCatalog.sql:/eShopOnContainersCatalog.sql
+  basket.db:
+    container_name: ${DOCKER_REGISTRY-}Basket.DB
+    image: redis:alpine
     
