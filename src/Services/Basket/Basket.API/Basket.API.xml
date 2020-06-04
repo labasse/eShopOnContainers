@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Basket.API</name>
+    </assembly>
+    <members>
+        <member name="M:Basket.API.Controllers.BasketsController.Get(System.String)">
+            <summary>
+            Retreive a basket from its buyer id
+            </summary>
+            <param name="id">Identifier of the buyer whose basket is to be retreived</param>
+            <returns>Basket of the buyer or not found if not existing</returns>
+            <response code="200">Basket with the given ID found</response>
+            <response code="404">No basket with the given ID found</response>
+        </member>
+        <member name="M:Basket.API.Controllers.BasketsController.Create(Basket.API.Models.CustomerBasket)">
+            <summary>
+            Create or update a given basket
+            </summary>
+            <param name="basket">The basket content with buyer identifier correctly filled</param>
+            <returns>The basket modified or created</returns>
+        </member>
+        <member name="M:Basket.API.Controllers.BasketsController.BasketCheckout(Basket.API.Models.CustomerBasket)">
+            <summary>
+            Checkout the buyer's basket (Not implemented)
+            </summary>
+            <param name="basket"></param>
+            <returns></returns>
+            <response code="501">Not implemented</response>
+        </member>
+        <member name="M:Basket.API.Controllers.BasketsController.RemoveBasket(System.String)">
+            <summary>
+            Delete a basket for the given buyer's id
+            </summary>
+            <param name="id">Identifier of the buyer whose basket is to be removed</param>
+            <returns>No content if the basket has been correctly removed or notfound else</returns>
+            <response code="204">No content if basket is correctly removed</response>
+            <response code="404">No basket with the given ID found</response>
+        </member>
+    </members>
+</doc>
