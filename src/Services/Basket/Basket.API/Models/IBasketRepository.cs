@@ -4,9 +4,9 @@ namespace Basket.API.Models
 {
     public interface IBasketRepository
     {
-        CustomerBasket GetBasketAsync(string customerId);
+        CustomerBasket GetBasket(string customerId);
         
-        CustomerBasket UpdateBasketAsync(CustomerBasket basket);
-        bool DeleteBasketAsync(string id);
+        CustomerBasket UpdateBasket(CustomerBasket basket);
+        bool DeleteBasket(string id);
     }
 }
