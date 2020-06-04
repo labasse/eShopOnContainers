@@ -8,7 +8,7 @@
             <summary>
             Get a paginated list of the catalog items
             </summary>
-            <param name="pageNum">Page numebr</param>
+            <param name="pageNum">Page number</param>
             <param name="pageSize">Page size</param>
             <returns>Paginated list of CatalogItems</returns>
             <response code="200">Request successfully processed</response>
