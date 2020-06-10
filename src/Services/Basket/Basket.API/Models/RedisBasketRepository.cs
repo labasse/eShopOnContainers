@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using StackExchange.Redis;
+using System.Threading.Tasks;
 
 namespace Basket.API.Models
 {
@@ -14,24 +15,25 @@ namespace Basket.API.Models
             _database = redis.GetDatabase();
         }
 
-        public bool DeleteBasket(string id)
+        public async Task<bool> DeleteBasket(string id)
         {
-            return _database.KeyDelete(id);
+            return await _database.KeyDeleteAsync(id);
         }
 
-        public CustomerBasket GetBasket(string customerId)
+        public async Task<CustomerBasket> GetBasket(string customerId)
         {
-            var data = _database.StringGet(customerId);
+            var data = await _database.StringGetAsync(customerId);
 
             return data.IsNullOrEmpty 
                 ? null
                 : JsonConvert.DeserializeObject<CustomerBasket>(data);
         }
 
-        public CustomerBasket UpdateBasket(CustomerBasket basket)
+        public async Task<CustomerBasket> UpdateBasket(CustomerBasket basket)
         {
-            return _database.StringSet(basket.BuyerId, JsonConvert.SerializeObject(basket))
-                ? GetBasket(basket.BuyerId)
+            var res = await _database.StringSetAsync(basket.BuyerId, JsonConvert.SerializeObject(basket));
+            return res
+                ? await GetBasket(basket.BuyerId)
                 : null;
         }
     }

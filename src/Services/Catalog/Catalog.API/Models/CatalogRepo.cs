@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Catalog.API.Models
@@ -26,8 +25,8 @@ namespace Catalog.API.Models
             db.Dispose();
         }
 
-        public CatalogItem GetItemById(int id) =>
-            db.QueryFirstOrDefault<CatalogItem>($"{selectQuery} WHERE items.id=@id", new { id = id });
+        public async Task<CatalogItem> GetItemById(int id) =>
+            await db.QueryFirstOrDefaultAsync<CatalogItem>($"{selectQuery} WHERE items.id=@id", new { id = id });
 
         public async Task<IEnumerable<CatalogItem>> GetItems(int pageSize, int pageNum)
         {

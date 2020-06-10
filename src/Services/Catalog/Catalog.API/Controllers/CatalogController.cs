@@ -54,9 +54,9 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("items/{id:int}")]
-        public ActionResult<CatalogItem> Get(int id)
+        public async Task<ActionResult<CatalogItem>> Get(int id)
         {
-            var res = _repo.GetItemById(id);
+            var res = await _repo.GetItemById(id);
 
             if(res == null)
             {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Basket.API.Controllers
 {
@@ -28,9 +29,9 @@ namespace Basket.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
-        public ActionResult<CustomerBasket> Get(string id)
+        public async Task<ActionResult<CustomerBasket>> Get(string id)
         {
-            var customerBasket = _repo.GetBasket(id);
+            var customerBasket = await  _repo.GetBasket(id);
 
             if(customerBasket==null)
             {
@@ -48,11 +49,11 @@ namespace Basket.API.Controllers
         /// <param name="basket">The basket content with buyer identifier correctly filled</param>
         /// <returns>The basket modified or created</returns>
         [HttpPost]
-        public ActionResult Create([FromBody] CustomerBasket basket)
+        public async Task<ActionResult> Create([FromBody] CustomerBasket basket)
         {
             return Created(
                 $"{Request.Scheme}://{Request.Host}{Request.Path}/{basket.BuyerId}", 
-                _repo.UpdateBasket(basket)
+                await _repo.UpdateBasket(basket)
             );
         }
 
@@ -79,9 +80,9 @@ namespace Basket.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
-        public ActionResult RemoveBasket(string id)
+        public async Task<ActionResult> RemoveBasket(string id)
         {
-            if (_repo.DeleteBasket(id))
+            if (await _repo.DeleteBasket(id))
             {
                 return NoContent();
             }

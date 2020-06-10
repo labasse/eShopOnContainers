@@ -9,6 +9,6 @@ namespace Catalog.API.Models
     {
         Task<IEnumerable<CatalogItem>> GetItems(int pageSize, int pageNum);
 
-        CatalogItem GetItemById(int id);
+        Task<CatalogItem> GetItemById(int id);
     }
 }

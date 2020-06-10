@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Basket.API.Models
 {
     public interface IBasketRepository
     {
-        CustomerBasket GetBasket(string customerId);
-        
-        CustomerBasket UpdateBasket(CustomerBasket basket);
-        bool DeleteBasket(string id);
+        Task<CustomerBasket> GetBasket(string customerId);
+
+        Task<CustomerBasket> UpdateBasket(CustomerBasket basket);
+        Task<bool> DeleteBasket(string id);
     }
 }
