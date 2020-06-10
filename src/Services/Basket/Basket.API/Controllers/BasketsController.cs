@@ -1,4 +1,5 @@
 ﻿using Basket.API.Models;
+using Basket.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -51,10 +52,17 @@ namespace Basket.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CustomerBasket basket)
         {
-            return Created(
-                $"{Request.Scheme}://{Request.Host}{Request.Path}/{basket.BuyerId}", 
-                await _repo.UpdateBasket(basket)
-            );
+            if(ModelState.IsValid)
+            {
+                return Created(
+                    $"{Request.Scheme}://{Request.Host}{Request.Path}/{basket.BuyerId}",
+                    await _repo.UpdateBasket(basket)
+                );
+            }
+            else
+            {
+                return BadRequest(ModelState.Values);
+            }            
         }
 
         /// <summary>

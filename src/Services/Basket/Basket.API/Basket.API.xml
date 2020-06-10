@@ -37,5 +37,33 @@
             <response code="204">No content if basket is correctly removed</response>
             <response code="404">No basket with the given ID found</response>
         </member>
+        <member name="M:Basket.API.Services.CatalogAPIClient.ItemsAllAsync(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>Get a paginated list of the catalog items</summary>
+            <param name="pageNum">Page number</param>
+            <param name="pageSize">Page size</param>
+            <returns>Request successfully processed</returns>
+            <exception cref="T:Basket.API.Services.ApiException">A server side error occurred.</exception>
+        </member>
+        <member name="M:Basket.API.Services.CatalogAPIClient.ItemsAllAsync(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+            <summary>Get a paginated list of the catalog items</summary>
+            <param name="pageNum">Page number</param>
+            <param name="pageSize">Page size</param>
+            <returns>Request successfully processed</returns>
+            <exception cref="T:Basket.API.Services.ApiException">A server side error occurred.</exception>
+        </member>
+        <member name="M:Basket.API.Services.CatalogAPIClient.ItemsAsync(System.Int32)">
+            <summary>Get the specified CatalogItem from its identifier</summary>
+            <param name="id">Identifier of the catalog item to be retreived</param>
+            <returns>Catalog Item with the given ID found</returns>
+            <exception cref="T:Basket.API.Services.ApiException">A server side error occurred.</exception>
+        </member>
+        <member name="M:Basket.API.Services.CatalogAPIClient.ItemsAsync(System.Int32,System.Threading.CancellationToken)">
+            <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+            <summary>Get the specified CatalogItem from its identifier</summary>
+            <param name="id">Identifier of the catalog item to be retreived</param>
+            <returns>Catalog Item with the given ID found</returns>
+            <exception cref="T:Basket.API.Services.ApiException">A server side error occurred.</exception>
+        </member>
     </members>
 </doc>

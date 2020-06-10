@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Basket.API.Models;
+using Basket.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +41,10 @@ namespace Basket.API
 
                 return ConnectionMultiplexer.Connect(configuration);
             });
+            services.AddSingleton<ICatalogService>(sp => new CatalogAPIClient(
+                Configuration.GetValue<string>("Services:Catalog.API"), 
+                new HttpClient()
+            ));
             services.AddTransient<IBasketRepository, RedisBasketRepository>();
             services.AddControllers();
             services.AddSwaggerGen(
