@@ -7,7 +7,7 @@ namespace Catalog.API.Models
 {
     public interface ICatalogRepo : IDisposable
     {
-        IEnumerable<CatalogItem> GetItems(int pageSize, int pageNum);
+        Task<IEnumerable<CatalogItem>> GetItems(int pageSize, int pageNum);
 
         CatalogItem GetItemById(int id);
     }

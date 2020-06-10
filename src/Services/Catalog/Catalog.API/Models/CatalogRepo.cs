@@ -29,7 +29,7 @@ namespace Catalog.API.Models
         public CatalogItem GetItemById(int id) =>
             db.QueryFirstOrDefault<CatalogItem>($"{selectQuery} WHERE items.id=@id", new { id = id });
 
-        public IEnumerable<CatalogItem> GetItems(int pageSize, int pageNum)
+        public async Task<IEnumerable<CatalogItem>> GetItems(int pageSize, int pageNum)
         {
             if(pageSize<1 || pageSize>50)
             {
@@ -39,7 +39,7 @@ namespace Catalog.API.Models
             {
                 throw new ArgumentOutOfRangeException("PageNum must be positive");
             }
-            return db.Query<CatalogItem>(
+            return await db.QueryAsync<CatalogItem>(
                 $"{selectQuery} ORDER BY Items.Id OFFSET @PageNum * @PageSize ROWS FETCH NEXT @PageSize ROWS ONLY",
                 new { PageNum = pageNum, PageSize = pageSize }
             );

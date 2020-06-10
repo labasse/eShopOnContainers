@@ -33,11 +33,11 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("items")]
-        public ActionResult<IEnumerable<CatalogItem>> Get([FromQuery] int pageNum = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<IEnumerable<CatalogItem>>> Get([FromQuery] int pageNum = 0, [FromQuery] int pageSize = 10)
         {
             try
             {
-                return Ok(_repo.GetItems(pageSize, pageNum));
+                return Ok(await _repo.GetItems(pageSize, pageNum));
             }
             catch(ArgumentOutOfRangeException e)
             {
