@@ -26,6 +26,7 @@ services:
       dockerfile: src/Services/Basket/Basket.API/Dockerfile
     depends_on:
       - basket.db
+      - catalog.api
   basket.db:
     container_name: ${DOCKER_REGISTRY-}Basket.DB
     image: redis:alpine    
