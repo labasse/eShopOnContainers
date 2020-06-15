@@ -30,3 +30,10 @@ services:
   basket.db:
     container_name: ${DOCKER_REGISTRY-}Basket.DB
     image: redis:alpine    
+
+  webspa:
+    image: ${DOCKER_REGISTRY-}webspa
+    build:
+      context: .
+      dockerfile: src/Web/WebSPA/Dockerfile
+
