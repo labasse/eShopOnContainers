@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Net.Http;
+using WebSPA.Services;
+using WebSPA.Services.Catalog;
 
 namespace WebSPA
 {
@@ -20,6 +23,10 @@ namespace WebSPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ICatalogService>(sp => new CatalogAPIClient(
+                Configuration.GetValue<string>("Services:Catalog.API"),
+                new HttpClient()
+            ));
 
             services.AddControllersWithViews();
 
