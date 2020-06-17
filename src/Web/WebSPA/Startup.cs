@@ -1,3 +1,4 @@
+using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,18 @@ namespace WebSPA
             services.AddSingleton<IBasketService>(sp => new BasketAPIClient(
                 Configuration.GetValue<string>("Services:Basket.API"),
                 new HttpClient()
+            ));
+            services.AddSingleton<IOrderingService>(sp => new OrderingServiceClient(
+                GrpcChannel.ForAddress(
+                    Configuration.GetValue<string>("Services:Ordering.API"),
+                    new GrpcChannelOptions
+                    {
+                        HttpClient = new HttpClient(new HttpClientHandler
+                        {
+                            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                        })
+                    }
+                )
             ));
 
             services.AddControllersWithViews();

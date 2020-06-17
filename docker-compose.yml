@@ -39,6 +39,7 @@ services:
     depends_on:
       - basket.api
       - catalog.api
+      - ordering.api
   cdn:
     image: halverneus/static-file-server
     ports:

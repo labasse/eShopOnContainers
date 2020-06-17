@@ -18,10 +18,10 @@ namespace Ordering.API
 
             // TODO : prepare response
             var response = new ListOrdersResponse();
-            response.NextPageToken = null;
+            response.NextPageToken = string.Empty;
             response.PageCount = 1;
             response.Orders.Add(new Order() { Number = "123456" });
-            return base.ListOrders(request, context);
+            return Task.FromResult(response);
         }
     }
 }
