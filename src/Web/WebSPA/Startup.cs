@@ -1,3 +1,4 @@
+using Grpc.Net.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,7 @@ using System.Net.Http;
 using WebSPA.Services;
 using WebSPA.Services.Basket;
 using WebSPA.Services.Catalog;
+using static Ordering.API.OrderingService;
 
 namespace WebSPA
 {

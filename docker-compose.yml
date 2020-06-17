@@ -47,3 +47,10 @@ services:
       - FOLDER=/content
     volumes:
       - ./src/Web/CDN:/content
+
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: src/Services/Ordering/Ordering.API/Dockerfile
+

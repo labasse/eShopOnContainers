@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.23.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.5" />
     <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -40,6 +41,12 @@
       <CodeGenerator>NSwagCSharp</CodeGenerator>
       <Link>OpenAPIs\CatalogAPI.json</Link>
     </OpenApiReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\..\Services\Ordering\Ordering.API\Protos\orderingService.proto" GrpcServices="Client">
+      <Link>Protos\orderingService.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
