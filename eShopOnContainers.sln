@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog.DB", "Catalog.DB", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "src\Services\Basket\Basket.API\Basket.API.csproj", "{4AFAD5F5-90ED-4EE8-AFA5-C6812E08C07A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSPA", "src\Web\WebSPA\WebSPA.csproj", "{E727EC6E-9368-4FD9-9F3C-720B6D55932A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSPA", "src\Web\WebSPA\WebSPA.csproj", "{E727EC6E-9368-4FD9-9F3C-720B6D55932A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Net.Http;
 using WebSPA.Services;
+using WebSPA.Services.Basket;
 using WebSPA.Services.Catalog;
 
 namespace WebSPA
@@ -25,6 +26,10 @@ namespace WebSPA
         {
             services.AddSingleton<ICatalogService>(sp => new CatalogAPIClient(
                 Configuration.GetValue<string>("Services:Catalog.API"),
+                new HttpClient()
+            ));
+            services.AddSingleton<IBasketService>(sp => new BasketAPIClient(
+                Configuration.GetValue<string>("Services:Basket.API"),
                 new HttpClient()
             ));
 

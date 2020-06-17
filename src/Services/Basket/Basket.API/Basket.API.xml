@@ -19,6 +19,8 @@
             </summary>
             <param name="basket">The basket content with buyer identifier correctly filled</param>
             <returns>The basket modified or created</returns>
+            <response code="200">Basket successfully modified</response>
+            <response code="201">Basket successfully created</response>
         </member>
         <member name="M:Basket.API.Controllers.BasketsController.BasketCheckout(Basket.API.Models.CustomerBasket)">
             <summary>

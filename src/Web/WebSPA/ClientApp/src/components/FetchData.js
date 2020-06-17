@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { CatalogItem } from './CatalogItem';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -14,26 +15,11 @@ export class FetchData extends Component {
 
   static renderItemsTable(items) {
     return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Brand name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map(item =>
-              <tr key={item.date}>
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.price}</td>
-                  <td>{item.brandName}</td>
-            </tr>
+        <div class='row'>
+            {items.map(item =>
+                <CatalogItem data={item} />
           )}
-        </tbody>
-      </table>
+        </div>
     );
   }
 
@@ -45,7 +31,6 @@ export class FetchData extends Component {
     return (
       <div>
         <h1 id="tabelLabel" >Our catalog</h1>
-        <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
     );

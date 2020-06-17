@@ -49,15 +49,18 @@ namespace Basket.API.Controllers
         /// </summary>
         /// <param name="basket">The basket content with buyer identifier correctly filled</param>
         /// <returns>The basket modified or created</returns>
+        /// <response code="200">Basket successfully modified</response>
+        /// <response code="201">Basket successfully created</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] CustomerBasket basket)
+        public async Task<ActionResult<CustomerBasket>> Create([FromBody] CustomerBasket basket)
         {
             if(ModelState.IsValid)
             {
-                return Created(
-                    $"{Request.Scheme}://{Request.Host}{Request.Path}/{basket.BuyerId}",
-                    await _repo.UpdateBasket(basket)
-                );
+                // TODO : check if created or modified
+                // and return Created($"{Request.Scheme}://{Request.Host}{Request.Path}/{basket.BuyerId}", await _repo.UpdateBasket(basket))
+                return Ok(await _repo.UpdateBasket(basket));
             }
             else
             {

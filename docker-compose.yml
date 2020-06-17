@@ -36,4 +36,14 @@ services:
     build:
       context: .
       dockerfile: src/Web/WebSPA/Dockerfile
-
+    depends_on:
+      - basket.api
+      - catalog.api
+  cdn:
+    image: halverneus/static-file-server
+    ports:
+      - 8080:8080
+    environment:
+      - FOLDER=/content
+    volumes:
+      - ./src/Web/CDN:/content

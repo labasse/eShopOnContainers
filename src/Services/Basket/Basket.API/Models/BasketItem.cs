@@ -25,8 +25,11 @@ namespace Basket.API.Models
             try
             {
                 var task = catalogService.ItemsAsync(ProductId);
-                
-                task.Wait();
+                var product = task.Result;
+
+                ProductName = product.Name;
+                UnitPrice = (decimal)product.Price;
+                PictureUrl = product.PictureFileName;
             }
             catch(AggregateException e)
             {
