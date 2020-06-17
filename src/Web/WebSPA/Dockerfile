@@ -4,12 +4,12 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
-RUN apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_14.x |  bash -
+RUN apt-get update -y && apt-get install -y nodejs yarn
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
-RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
-RUN apt-get install -y nodejs
+RUN curl -sL https://deb.nodesource.com/setup_14.x |  bash -
+RUN apt-get update -y && apt-get install -y nodejs yarn
 WORKDIR /src
 COPY ["src/Web/WebSPA/WebSPA.csproj", "src/Web/WebSPA/"]
 RUN dotnet restore "src/Web/WebSPA/WebSPA.csproj"
