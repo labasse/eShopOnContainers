@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Catalog.API.Models;
+using eShopOnContainers.Common.EventBus;
+using eShopOnContainers.Common.EventBus.Messages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,10 @@ namespace Catalog.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ICatalogRepo>(s => new CatalogRepo(Configuration.GetConnectionString("Catalog")));
+            
+            services.AddSingleton<IEventBus>(s => new RabbitMQEventBus(Configuration.GetValue<string>("EventBus:Rabbit"), "checkout1"));
+            services.AddSingleton<ISubscriber<Checkout>, StockUpdater>();
+
             services.AddControllers();
             services.AddSwaggerGen(
                 c => {
@@ -54,6 +60,8 @@ namespace Catalog.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.ApplicationServices.GetService<ISubscriber<Checkout>>();
 
             app.UseSwagger();
             app.UseSwaggerUI(

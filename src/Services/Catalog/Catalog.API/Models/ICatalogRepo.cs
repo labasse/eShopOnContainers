@@ -10,5 +10,7 @@ namespace Catalog.API.Models
         Task<IEnumerable<CatalogItem>> GetItems(int pageSize, int pageNum);
 
         Task<CatalogItem> GetItemById(int id);
+
+        Task RemoveFromStock(int productId, int quantity);
     }
 }

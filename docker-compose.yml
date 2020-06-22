@@ -8,6 +8,7 @@ services:
       dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
     depends_on:
       - catalog.db
+      - bus
   catalog.db:
     container_name: ${DOCKER_REGISTRY-}Catalog.DB
     image: "mcr.microsoft.com/mssql/server"
@@ -15,6 +16,8 @@ services:
     environment:
         SA_PASSWORD: "Catalog_123"
         ACCEPT_EULA: "Y"
+    ports:
+      - 11433:1433
     volumes:
       - ./src/Services/Catalog/Catalog.DB/entrypoint.sh:/entrypoint.sh
       - ./src/Services/Catalog/Catalog.DB/eShopOnContainersCatalog.sh:/eShopOnContainersCatalog.sh
@@ -27,6 +30,7 @@ services:
     depends_on:
       - basket.db
       - catalog.api
+      - bus
   basket.db:
     container_name: ${DOCKER_REGISTRY-}Basket.DB
     image: redis:alpine    
@@ -55,3 +59,11 @@ services:
       context: .
       dockerfile: src/Services/Ordering/Ordering.API/Dockerfile
 
+  ordering.db:
+    container_name: ${DOCKER_REGISTRY-}Ordering.DB
+    image: redis:alpine    
+
+  bus:
+    container_name: ${DOCKER_REGISTRY-}BUS
+    image: rabbitmq:3-management-alpine
+    

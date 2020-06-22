@@ -43,5 +43,13 @@ namespace Catalog.API.Models
                 new { PageNum = pageNum, PageSize = pageSize }
             );
         }
+
+        public async Task RemoveFromStock(int productId, int quantity)
+        {
+            await db.ExecuteAsync(
+                $"UPDATE Items SET AvailableStock = AvailableStock - @Quantity WHERE Id = @id",
+                new { Quantity = quantity, id = productId }
+            );
+        }
     }
 }

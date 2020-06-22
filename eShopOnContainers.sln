@@ -18,7 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "src\Services\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSPA", "src\Web\WebSPA\WebSPA.csproj", "{E727EC6E-9368-4FD9-9F3C-720B6D55932A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "src\Services\Ordering\Ordering.API\Ordering.API.csproj", "{D527A540-F93A-41A7-A4AB-516CB029A8C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.API", "src\Services\Ordering\Ordering.API\Ordering.API.csproj", "{D527A540-F93A-41A7-A4AB-516CB029A8C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "src\Common\EventBus\EventBus.csproj", "{4A6B6E88-4CB1-420D-9C5B-3C8EA3A354FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{D527A540-F93A-41A7-A4AB-516CB029A8C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D527A540-F93A-41A7-A4AB-516CB029A8C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D527A540-F93A-41A7-A4AB-516CB029A8C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A6B6E88-4CB1-420D-9C5B-3C8EA3A354FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A6B6E88-4CB1-420D-9C5B-3C8EA3A354FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A6B6E88-4CB1-420D-9C5B-3C8EA3A354FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A6B6E88-4CB1-420D-9C5B-3C8EA3A354FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

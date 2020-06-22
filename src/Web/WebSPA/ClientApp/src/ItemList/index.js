@@ -19,8 +19,8 @@ export default function ItemList({ data, addToCart }) {
           <Box xs={12}>
               <img src={`${CONF.CDN_URL}/img/main_banner.png`} />
           </Box>
-        {data.map(({ id, name, description, pictureFileName, price, availableStock, typeTitle, brandName }) => (
-        <Grid key={id} item xs={3} xl={2}>
+          {data.map(({ id, name, description, pictureFileName, price, availableStock, typeTitle, brandName }) => (
+              <Grid key={id} item xs={6} md={3}  xl={2}>
           <ItemCard
             name={name}
             description={description}

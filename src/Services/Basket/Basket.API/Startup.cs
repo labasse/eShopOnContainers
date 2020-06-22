@@ -4,6 +4,8 @@ using System.Net.Http;
 using System.Reflection;
 using Basket.API.Models;
 using Basket.API.Services;
+using eShopOnContainers.Common.EventBus;
+using eShopOnContainers.Common.EventBus.Messages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,11 @@ namespace Basket.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IEventBus>(s => new RabbitMQEventBus(
+                Configuration.GetValue<string>("EventBus:Rabbit"),
+                "checkout1"
+            ));
+            //services.AddSingleton<ISubscriber<Checkout>, Sub>();
             services.AddSingleton<ConnectionMultiplexer>(sp =>
             {
                 var connectionString = Configuration.GetConnectionString("Basket");
@@ -64,6 +71,7 @@ namespace Basket.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            //app.ApplicationServices.GetService<ISubscriber<Checkout>>();
             app.UseSwagger();
             app.UseSwaggerUI(
                 c =>

@@ -24,11 +24,11 @@
         </member>
         <member name="M:Basket.API.Controllers.BasketsController.BasketCheckout(Basket.API.Models.CustomerBasket)">
             <summary>
-            Checkout the buyer's basket (Not implemented)
+            Checkout the buyer's basket
             </summary>
             <param name="basket"></param>
             <returns></returns>
-            <response code="501">Not implemented</response>
+            <response code="201">Order creation started</response>
         </member>
         <member name="M:Basket.API.Controllers.BasketsController.RemoveBasket(System.String)">
             <summary>

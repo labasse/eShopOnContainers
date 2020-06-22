@@ -6,7 +6,7 @@
     <ProjectGuid>9deb828b-9ae3-4d23-af4e-e31c512e3688</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/</DockerServiceUrl>
-    <DockerServiceName>webspa</DockerServiceName>
+    <DockerServiceName>catalog.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
