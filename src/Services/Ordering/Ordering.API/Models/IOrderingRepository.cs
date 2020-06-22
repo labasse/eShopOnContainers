@@ -5,8 +5,10 @@ namespace Ordering.API.Models
 {
     public interface IOrderingRepository
     {
-        Task<IEnumerable<Order>> GetOrders(string orderId);
+        Task<IEnumerable<string>> ListOrderIds(string buyerId);
 
-        Task<Order> CreateOrder(string OrderId);      
+        Task<Order> GetOrder(string orderId);
+
+        Task<Order> UpdateOrder(Order order);
     }
 }

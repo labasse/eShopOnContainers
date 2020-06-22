@@ -9,6 +9,8 @@ namespace WebSPA.Services
 {
     public interface IOrderingService
     {
-        ListOrdersResponse ListOrders(ListOrdersRequest request, CallOptions options);
+        Task<ListOrdersResponse> ListOrdersAsync(ListOrdersRequest request);
+        Task<Order> GetOrderAsync(GetOrderRequest request);
+        Task<Order> UpdateOrderAsync(Order request);
     }
 }

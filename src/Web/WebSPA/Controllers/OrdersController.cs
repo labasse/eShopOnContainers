@@ -22,13 +22,20 @@ namespace WebSPA.Controllers
         }
 
         [HttpGet("{buyerId}")]
-        public ActionResult<IEnumerable<Order>> Get(string buyerId, [FromQuery] string pageToken = "1", [FromQuery] int? pageSize = 10)
+        public async Task<ActionResult<IEnumerable<string>>> Get(string buyerId)
         {
-            var response = _serviceOrdering.ListOrders(
-                new ListOrdersRequest { BuyerId = buyerId, PageToken = pageToken, PageSize = pageSize.Value },
-                new CallOptions()
+            var response = await _serviceOrdering.ListOrdersAsync(
+                new ListOrdersRequest { BuyerId = buyerId }
             );
-            return response.Orders;
+            return response.OrderIds;
         }
+
+        [HttpGet("{buyerId}/{orderId}")]
+        public async Task<ActionResult<Order>> Get(string buyerId, string orderId) =>
+            await _serviceOrdering.GetOrderAsync(new GetOrderRequest { OrderId = orderId });
+
+        [HttpPost("{buyerId}/{orderId?}")]
+        public async Task<ActionResult<Order>> Update([FromBody] Order order) =>
+            await _serviceOrdering.UpdateOrderAsync(order);
     }
 }

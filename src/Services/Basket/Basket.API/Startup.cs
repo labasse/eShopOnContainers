@@ -32,7 +32,7 @@ namespace Basket.API
                 Configuration.GetValue<string>("EventBus:Rabbit"),
                 "checkout1"
             ));
-            //services.AddSingleton<ISubscriber<Checkout>, Sub>();
+            
             services.AddSingleton<ConnectionMultiplexer>(sp =>
             {
                 var connectionString = Configuration.GetConnectionString("Basket");
@@ -71,7 +71,7 @@ namespace Basket.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            //app.ApplicationServices.GetService<ISubscriber<Checkout>>();
+            
             app.UseSwagger();
             app.UseSwaggerUI(
                 c =>

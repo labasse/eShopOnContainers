@@ -28,10 +28,10 @@ services:
       context: .
       dockerfile: src/Services/Basket/Basket.API/Dockerfile
     depends_on:
-      - basket.db
+      - redis.db
       - catalog.api
       - bus
-  basket.db:
+  redis.db:
     container_name: ${DOCKER_REGISTRY-}Basket.DB
     image: redis:alpine    
 
@@ -62,6 +62,8 @@ services:
   ordering.db:
     container_name: ${DOCKER_REGISTRY-}Ordering.DB
     image: redis:alpine    
+    depends_on:
+      - redis.db
 
   bus:
     container_name: ${DOCKER_REGISTRY-}BUS

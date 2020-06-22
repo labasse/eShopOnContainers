@@ -9,6 +9,6 @@ namespace Ordering.API.Models
     {
         public string IdOrder { get; set; }
         public string BuyerId { get; set; }
-        public object Data { get; set; }
+        public ICollection<string> Lines { get; set; }
     }
 }
