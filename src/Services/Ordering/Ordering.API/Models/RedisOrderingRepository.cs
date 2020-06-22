@@ -4,6 +4,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using eShopOnContainers.Common.EventBus.Messages;
 
 namespace Ordering.API.Models
 {
@@ -44,6 +45,17 @@ namespace Ordering.API.Models
                 ? await GetOrder(order.BuyerId)
                 : null;
         }
+        public async Task AddOrderStateAsync(OrderStateMsg message)
+        {
+            var order = await GetOrder(message.OrderId);
+
+            order.States.Add(new OrderState
+            {
+                Name = message.Name,
+                Data = message.Data
+            });
+            await UpdateOrder(order);
+        }
         private async Task<string> GetAllOrderIds(string buyerId)
         {
             var all = await _database.StringGetAsync($"orders/{buyerId}");
@@ -61,7 +73,5 @@ namespace Ordering.API.Models
             );
             return orderId;
         }
-
-
     }
 }

@@ -58,10 +58,6 @@ services:
     build:
       context: .
       dockerfile: src/Services/Ordering/Ordering.API/Dockerfile
-
-  ordering.db:
-    container_name: ${DOCKER_REGISTRY-}Ordering.DB
-    image: redis:alpine    
     depends_on:
       - redis.db
 

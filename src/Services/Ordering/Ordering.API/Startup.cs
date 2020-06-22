@@ -1,21 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using eShopOnContainers.Common.EventBus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using eShopOnContainers.Common.EventBus.Messages;
+using Ordering.API.Models;
 
 namespace Ordering.API
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IEventBus>(s => new RabbitMQEventBus(Configuration.GetValue<string>("EventBus:Rabbit"), "orderstates"));
+            services.AddSingleton<ISubscriber<OrderStateMsg>, OrderStateUpdater>();
+
             services.AddGrpc();
         }
 
@@ -26,6 +37,8 @@ namespace Ordering.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.ApplicationServices.GetService<ISubscriber<OrderStateMsg>>();
 
             app.UseRouting();
 

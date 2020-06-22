@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using eShopOnContainers.Common.EventBus.Messages;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Ordering.API.Models
@@ -10,5 +11,6 @@ namespace Ordering.API.Models
         Task<Order> GetOrder(string orderId);
 
         Task<Order> UpdateOrder(Order order);
+        Task AddOrderStateAsync(OrderStateMsg message);
     }
 }

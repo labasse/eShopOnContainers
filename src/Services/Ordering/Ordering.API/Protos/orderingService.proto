@@ -8,7 +8,6 @@ service OrderingService {
   
   rpc ListOrders (ListOrdersRequest) returns (ListOrdersResponse);
   rpc GetOrder (GetOrderRequest) returns (Order);
-  rpc CreateOrder (Order) returns (Order);
   rpc UpdateOrder (Order) returns (Order);
 }
 
@@ -16,6 +15,12 @@ message Order {
 	string IdOrder = 1;
     string BuyerId = 2;
     repeated string lines = 3;
+    repeated OrderState states = 4;
+}
+
+message OrderState {
+    string state = 1;
+    string data = 2;
 }
 
 message ListOrdersRequest {

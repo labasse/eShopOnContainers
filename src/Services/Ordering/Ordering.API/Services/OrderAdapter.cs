@@ -1,4 +1,5 @@
-﻿using model = Ordering.API.Models;
+﻿using System.Linq;
+using model = Ordering.API.Models;
 
 namespace Ordering.API.Services
 {
@@ -12,6 +13,11 @@ namespace Ordering.API.Services
                 IdOrder = model.IdOrder
             };
             result.Lines.AddRange(model.Lines);
+            result.States.AddRange(model.States.Select(s => new OrderState
+            {
+                State = s.Name,
+                Data = s.Data
+            }));
             return result;
         }
 
@@ -20,7 +26,11 @@ namespace Ordering.API.Services
             {
                 BuyerId = grpc.BuyerId,
                 IdOrder = grpc.IdOrder,
-                Lines = grpc.Lines
+                Lines = grpc.Lines,
+                States = grpc.States.Select(s => new model.OrderState { 
+                    Name = s.State,
+                    Data = s.Data 
+                }).ToList()
             };        
     }
 }
