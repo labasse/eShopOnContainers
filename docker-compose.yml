@@ -7,10 +7,10 @@ services:
       context: .
       dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
     depends_on:
-      - catalog.db
+      - mssql.db
       - bus
-  catalog.db:
-    container_name: ${DOCKER_REGISTRY-}Catalog.DB
+  mssql.db:
+    container_name: ${DOCKER_REGISTRY-}MsSql.DB
     image: "mcr.microsoft.com/mssql/server"
     command: /bin/bash /entrypoint.sh
     environment:
@@ -65,3 +65,12 @@ services:
     container_name: ${DOCKER_REGISTRY-}BUS
     image: rabbitmq:3-management-alpine
     
+  webidentity:
+    image: ${DOCKER_REGISTRY-}webidentity
+    build:
+      context: .
+      dockerfile: src/Web/WebIdentity/Dockerfile
+    # volumes: # Sqlite version
+    #   - ./src/Web/WebIdentity/AspIdUsers.db:/AspIdUsers.db
+    depends_on:
+      - mssql.db
