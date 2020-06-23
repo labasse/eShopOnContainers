@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using eShopOnContainers.Common.EventBus.Messages;
 using Ordering.API.Models;
+using StackExchange.Redis;
 
 namespace Ordering.API
 {
@@ -24,6 +25,16 @@ namespace Ordering.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ConnectionMultiplexer>(sp =>
+            {
+                var connectionString = Configuration.GetConnectionString("Ordering");
+                var configuration = ConfigurationOptions.Parse(connectionString, true);
+
+                configuration.ResolveDns = true;
+
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+            services.AddTransient<IOrderingRepository, RedisOrderingRepository>();
             services.AddSingleton<IEventBus>(s => new RabbitMQEventBus(Configuration.GetValue<string>("EventBus:Rabbit"), "orderstates"));
             services.AddSingleton<ISubscriber<OrderStateMsg>, OrderStateUpdater>();
 
