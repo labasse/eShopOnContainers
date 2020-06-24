@@ -4,11 +4,32 @@
 
 using IdentityServer4.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebIdentity
 {
     public static class Config
     {
+        #region Utility methods
+        private static T[] NewList<T>(params T[] args) => args;
+
+        private static ICollection<Secret> NewSecrets(params string[] sList) => sList.Select(s => new Secret(s.Sha256())).ToList();
+
+        private static Scope NewScope(
+            string name, string displayName, string description = "",
+            bool required = true, bool emphasize = false,
+            ICollection<string> userClaims = null 
+        ) => new Scope
+        {
+            Name = name,
+            DisplayName = displayName,
+            Required = required,
+            Emphasize = emphasize,
+            Description = description,
+            UserClaims = userClaims ?? new string[] { }
+        };
+        #endregion
+
         public static IEnumerable<IdentityResource> Ids =>
             new IdentityResource[]
             {
@@ -16,12 +37,20 @@ namespace WebIdentity
                 new IdentityResources.Profile(),
             };
 
-
-        public static IEnumerable<ApiResource> Apis =>
-            new ApiResource[]
+        public static IEnumerable<ApiResource> Apis => NewList(
+            new ApiResource("catalog", "Catalog API")
             {
-                new ApiResource("api1", "My API #1")
-            };
+                ApiSecrets = NewSecrets("870717F5-647C-4206-984C-D1347B1E203F"),
+                Description = "Catalog related service for eShopOnContainers items and stock",
+                Scopes = {
+                    NewScope("catalog.create", "Catalog creation", "Fill catalog with new products"),
+                    NewScope("catalog.edit"  , "Catalog editing" , "Manage items in catalog"       ),
+                    NewScope("catalog.stock" , "Inventory"       , "Edit catalog items inventory"  , true, true, NewList("EmployeeNumber"))
+                }
+            },
+            new ApiResource("basket", "Cart Management") { },
+            new ApiResource("ordering", "Order Management") { }
+        );
 
 
         public static IEnumerable<Client> Clients =>
@@ -63,7 +92,7 @@ namespace WebIdentity
                     ClientId = "spa",
                     ClientName = "SPA Client",
                     ClientUri = "http://identityserver.io",
-
+                      
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
                     RequireClientSecret = false,
@@ -79,7 +108,8 @@ namespace WebIdentity
                     PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
                     AllowedCorsOrigins = { "http://localhost:5002" },
 
-                    AllowedScopes = { "openid", "profile", "api1" }
+                    AllowedScopes = {  }
+                    
                 }
             };
     }
