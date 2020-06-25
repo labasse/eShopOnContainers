@@ -55,6 +55,13 @@ namespace WebSPA
             {
                 configuration.RootPath = "ClientApp/build";
             });
+            services.AddCors(options =>
+                options.AddPolicy("identity", policy =>
+                    policy.WithOrigins("http://localhost:32770")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                )
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +83,7 @@ namespace WebSPA
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseCors("identity");
 
             app.UseEndpoints(endpoints =>
             {

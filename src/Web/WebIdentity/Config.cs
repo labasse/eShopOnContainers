@@ -10,6 +10,8 @@ namespace WebIdentity
 {
     public static class Config
     {
+        const int SpaPort = 32776;
+
         #region Utility methods
         private static T[] NewList<T>(params T[] args) => args;
 
@@ -56,60 +58,29 @@ namespace WebIdentity
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
-                // client credentials flow client
-                new Client
-                {
-                    ClientId = "client",
-                    ClientName = "Client Credentials Client",
-
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-
-                    AllowedScopes = { "catalog" }
-                },
-
-                // MVC client using code flow + pkce
-                new Client
-                {
-                    ClientId = "mvc",
-                    ClientName = "MVC Client",
-
-                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
-                    RequirePkce = true,
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
-                    RedirectUris = { "http://localhost:5003/signin-oidc" },
-                    FrontChannelLogoutUri = "http://localhost:5003/signout-oidc",
-                    PostLogoutRedirectUris = { "http://localhost:5003/signout-callback-oidc" },
-
-                    AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "catalog" }
-                },
-
-                // SPA client using code flow + pkce
                 new Client
                 {
                     ClientId = "spa",
-                    ClientName = "SPA Client",
-                    ClientUri = "http://identityserver.io",
+                    ClientName = "eShopOnContainers (React)",
                       
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    //RequirePkce = true,
                     RequireClientSecret = false,
 
-                    RedirectUris =
-                    {
-                        "http://localhost:5002/index.html",
-                        "http://localhost:5002/callback.html",
-                        "http://localhost:5002/silent.html",
-                        "http://localhost:5002/popup.html",
-                    },
+                    RedirectUris = { $"https://localhost:{SpaPort}/" },
 
-                    PostLogoutRedirectUris = { "http://localhost:5002/index.html" },
-                    AllowedCorsOrigins = { "http://localhost:5002" },
+                    PostLogoutRedirectUris  = { $"https://localhost:{SpaPort}/" },
+                    AllowedCorsOrigins      = { $"https://localhost:{SpaPort}" },
 
-                    AllowedScopes = { "catalog" }
-                    
+                    AllowedScopes = { 
+                        "openid",
+                        "profile",
+                        "catalog.create",
+                        "catalog.edit",  
+                        "catalog.stock" 
+                    }
                 }
             };
     }
