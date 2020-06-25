@@ -30,7 +30,7 @@ var BuyerId = uuidv4();
 
 export default function App() {
     const { status: itemsStatus, data: items } = useQuery('Items', fetchItems);
-    const { status: remoteCartStatus, data: remoteCart } = useQuery('Cart', fetchCart, { initialData: { buyerId: BuyerId, items: [] } });
+    const { status: remoteCartStatus } = useQuery('Cart', fetchCart, { initialData: { buyerId: BuyerId, items: [] } });
     const [localCart, { push, reset }] = useList([]);
     const [popinCartOpen, setPopinCartOpen] = useState(false);
     const [username, setUsername] = useState(null);

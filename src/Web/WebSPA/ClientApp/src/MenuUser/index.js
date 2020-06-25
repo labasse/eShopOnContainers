@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from 'react';
 import { string, func } from "prop-types";
 import {
   Menu,
@@ -43,9 +42,7 @@ export default function MenuUser({ userWrap, username, showOrders, logout }) {
 }
 
 MenuUser.propTypes = {
-  login: string.isRequired,
-    userWrap: func.isRequired,
-    username: func.isRequired,
+  username: string.isRequired,
   showOrders: func,
   logout: func
 };

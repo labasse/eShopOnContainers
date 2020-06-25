@@ -15,9 +15,9 @@ export default function ItemList({ data, addToCart }) {
     );
   console.log(data);
   return (
-      <Grid container justify="center" justify="space-between">
+      <Grid container justify="space-between">
           <Box xs={12}>
-              <img src={`${CONF.CDN_URL}/img/main_banner.png`} />
+              <img src={`${CONF.CDN_URL}/img/main_banner.png`} alt={data.name}/>
           </Box>
           {data.map(({ id, name, description, pictureFileName, price, availableStock, typeTitle, brandName }) => (
               <Grid key={id} item xs={6} md={3}  xl={2}>
@@ -37,7 +37,7 @@ export default function ItemList({ data, addToCart }) {
   );
 }
 
-ItemList.protypes = {
+ItemList.propTypes = {
   data: arrayOf(shape(ItemCard.propTypes)),
   addToCart: func,
 };

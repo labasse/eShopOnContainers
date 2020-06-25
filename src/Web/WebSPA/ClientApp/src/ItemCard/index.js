@@ -77,7 +77,7 @@ ItemCard.propTypes = {
   name: string.isRequired,
   description: string.isRequired,
   price: number.isRequired,
-  imageUrl: string.isRequired,
+  imageUrl: string,
   availableStock: number.isRequired,
   typeTitle : string.isRequired,
   brandName: string.isRequired
